@@ -1,0 +1,9 @@
+Simple first stab at connecting hanlon to an existing network with zero configuration.
+
+```
+$ ip addr show dev wl scope global | grip inet
+inet 192.168.1.11/24
+$ docker run --net host --env HANLON_IP=192.168.1.11 hanlon/dhcproxy
+dnsmasq: started, version 2.59 DNS disabled
+dnsmasq-dhcp: DHCP, proxy on subnet 192.168.1.11
+```
