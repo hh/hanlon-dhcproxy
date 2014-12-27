@@ -1,9 +1,37 @@
 Simple first stab at connecting hanlon to an existing network with zero configuration.
 
+This is example is connecting to a home wifi network with an existing, out of my control dhcp server. The client is a pxe host getting it's dhcp address from the home wifi, and it's hanlon info from this proxy.
+
 ```
 $ ip addr show dev wl scope global | grip inet
 inet 192.168.1.11/24
-$ docker run --net host --env HANLON_IP=192.168.1.11 hanlon/dhcproxy
+$ docker run --net host --env HANLON_IP=192.168.1.11 -ti hanlon/dhcproxy
 dnsmasq: started, version 2.59 DNS disabled
+dnsmasq: compile time options: IPv6 GNU-getopt DBus i18n DHCP TFTP conntrack IDN
 dnsmasq-dhcp: DHCP, proxy on subnet 192.168.1.11
+dnsmasq-dhcp: 684280439 available DHCP subnet: 192.168.1.11/255.255.255.0
+dnsmasq-dhcp: 684280439 vendor class: PXEClient:Arch:00000:UNDI:002001
+dnsmasq-dhcp: 684280439 PXE(wl) 08:00:27:c9:4a:77 proxy
+dnsmasq-dhcp: 684280439 tags: wl
+dnsmasq-dhcp: 684280439 bootfile name: undionly.kpxe
+dnsmasq-dhcp: 684280439 next server: 192.168.1.11
+dnsmasq-dhcp: 684280439 broadcast response
+dnsmasq-dhcp: 684280439 sent size:  1 option: 53:message-type  02
+dnsmasq-dhcp: 684280439 sent size:  4 option: 54:server-identifier  192.168.1.11
+dnsmasq-dhcp: 684280439 sent size:  9 option: 60:vendor-class  50:58:45:43:6c:69:65:6e:74
+dnsmasq-dhcp: 684280439 sent size: 17 option: 97:client-machine-id  00:05:f2:bc:23:60:eb:45:ba:85:bb:b6:6b...
+dnsmasq-dhcp: 684280439 sent size: 95 option: 43:vendor-encap  06:01:03:08:0e:80:00:01:c0:a8:01:0b:00...
+dnsmasq-dhcp: 684280439 available DHCP subnet: 192.168.1.11/255.255.255.0
+dnsmasq-dhcp: 684280439 vendor class: PXEClient:Arch:00000:UNDI:002001
+dnsmasq-dhcp: 684280439 available DHCP subnet: 192.168.1.11/255.255.255.0
+dnsmasq-dhcp: 684280439 vendor class: PXEClient:Arch:00000:UNDI:002001
+dnsmasq-dhcp: 684280439 PXE(wl) 192.168.1.14 08:00:27:c9:4a:77 pxelinux.0
+dnsmasq-dhcp: 684280439 tags: wl
+dnsmasq-dhcp: 684280439 bootfile name: pxelinux.0
+dnsmasq-dhcp: 684280439 next server: 192.168.1.11
+dnsmasq-dhcp: 684280439 sent size:  1 option: 53:message-type  05
+dnsmasq-dhcp: 684280439 sent size:  4 option: 54:server-identifier  192.168.1.11
+dnsmasq-dhcp: 684280439 sent size:  9 option: 60:vendor-class  50:58:45:43:6c:69:65:6e:74
+dnsmasq-dhcp: 684280439 sent size: 17 option: 97:client-machine-id  00:05:f2:bc:23:60:eb:45:ba:85:bb:b6:6b...
+dnsmasq-dhcp: 684280439 sent size: 32 option: 43:vendor-encap  47:04:80:00:00:00:0a:17:03:50:72:65:73...
 ```
